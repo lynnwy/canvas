@@ -5,13 +5,23 @@
   }
   body{
     margin:0;
+    position: relative;
   }
   html{
     
   }
-  
-  #zzz{
-    background: lightblue;
-    display:block;
+ .nav{
+   position: absolute;
+   top:0;
+
+ }
+  button{
     
+    float: left;
+  }
+ 
+  .clearfix::after{
+    content:"";
+    display:block;
+    clear:both;
   }

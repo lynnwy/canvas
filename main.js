@@ -1,10 +1,19 @@
+var hash={
+  "0":"blue",
+  "1":"green",
+  "2":"red",
+  "3":"grey",
+  "length":"4"
 
+}
 
 var yyy=document.getElementById('xxx')
-var ctx = yyy.getContext('2d');
-ctx.fillStyle='lightblue'
-ctx.strokeStyle='lightblue'
 
+autoSetCanvasSize(yyy)
+var ctx = yyy.getContext('2d');
+function clickColor(){}
+
+listenToMouse(yyy)
 
 
 //画矩形
@@ -20,35 +29,8 @@ ctx.lineTo(300,240)
 ctx.lineTo(300,300)
 ctx.fill()*/
 
-var painting =false
-var lastpoint={x:undefined,y:undefined}
-
-yyy.onmousedown=function(aaa){
-  painting=true
-  var x=aaa.clientX
-  var y=aaa.clientY
-  lastPoint={x:x,y:y}
-  drawCircle(x,y,1)
-}
-
-yyy.onmousemove=function(aaa){
-   if(painting){
-   var x=aaa.clientX
-   var y=aaa.clientY
-   var newPoint={x:x,y:y}
-   drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
-   drawCircle(x,y,1)
-   lastPoint=newPoint
-   }
-}
-
-yyy.onmouseup=function(aaa){
-  painting=false
-  
-}
-
-
 //画线
+
 function drawLine(x1,y1,x2,y2){
 
      ctx.beginPath()
@@ -67,6 +49,117 @@ function drawCircle(x,y,radius){
   ctx.arc(x,y,radius,0,Math.PI*2)
   ctx.fill()
   
+}
+
+
+
+//获取页面宽高
+function autoSetCanvasSize(canvas){
+  getPageWH()
+  window.onresize=getPageWH()
+  function getPageWH(){
+    var pageWidth=document.documentElement.clientWidth
+    var pageHeight=document.documentElement.clientHeight
+    canvas.width=pageWidth
+    canvas.height=pageHeight
+    
+  }
+  
+}
+
+
+
+
+
+function listenToMouse(canvas){
+  var clickon =false
+  var lastpoint={x:undefined,y:undefined}
+  canvas.onmousedown= function(aaa){
+    var x=aaa.clientX
+    var y=aaa.clientY
+    clickon=true
+    if(usingEraser){
+      
+      lastPoint={
+        "x":x,
+        "y":y
+      }
+      ctx.clearRect(x,y,10,10)
+    }else if(usingPen) {
+      
+      lastPoint={
+        "x":x,
+        "y":y
+      }
+    }
+  }
+  
+  canvas.onmousemove=function(aaa){
+    var x=aaa.clientX
+    var y=aaa.clientY
+     
+     if(usingEraser){
+       if(clickon){
+        var newPoint={x:x,y:y}
+      ctx.clearRect(x-5,y-5,10,10)
+      lastPoint=newPoint
+     }}
+     else{
+      if(clickon){ 
+        var newPoint={x:x,y:y}
+        drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
+        
+        lastPoint=newPoint
+     }}
+   
+  }
+  
+  
+  
+  canvas.onmouseup=function(aaa){
+    clickon=false 
+  }
+  
+}
+
+var usingEraser = false
+eraser.onclick = function(){
+  usingEraser = true
+  usingPen=false
+}
+
+var usingPen = false
+pen.onclick = function(){
+  usingPen = true
+  usingEraser= false
+
+}
+
+
+
+blue.onclick=function(){
+  
+  ctx.fillStyle=hash["0"]
+  ctx.strokeStyle=hash["0"]
+  
+}
+green.onclick=function(){
+ 
+  ctx.fillStyle=hash["1"]
+  ctx.strokeStyle=hash["1"]
+ 
+}
+red.onclick=function(){
+  
+  ctx.fillStyle=hash["2"]
+  ctx.strokeStyle=hash["2"]
+  
+}
+grey.onclick=function(){
+
+  ctx.fillStyle=hash["3"]
+  ctx.strokeStyle=hash["3"]
+ 
 }
 
 
