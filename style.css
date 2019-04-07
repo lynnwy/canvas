@@ -23,7 +23,7 @@ ul,ol{
     
   }
  .nav{
-   position: absolute,fixed;
+   position: fixed ;
    top:0;
    padding:20px;
 
@@ -45,7 +45,7 @@ ul,ol{
     overflow: hidden;
     margin-left: 1em;
     transition:all 0.3s;
-    position: fixed;
+    
  }
  svg.active{
    fill:red;
