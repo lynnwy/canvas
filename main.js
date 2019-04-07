@@ -1,9 +1,10 @@
+
+
 var hash={
-  "0":"blue",
-  "1":"green",
+  "0":"lightblue",
+  "1":"greenyellow",
   "2":"red",
-  "3":"grey",
-  "length":"4"
+  "length":"3"
 
 }
 
@@ -36,7 +37,7 @@ function drawLine(x1,y1,x2,y2){
      ctx.beginPath()
      ctx.moveTo(x1,y1)
      ctx.lineTo(x2,y2)
-     ctx.lineWidth=5
+     ctx.lineWidth=lineWidth
      ctx.stroke()
      ctx.closePath()
 }
@@ -106,7 +107,7 @@ function listenToMouse(canvas){
       if(usingEraser){
         if(clickon){
          var newPoint={x:x,y:y}
-       ctx.clearRect(x-5,y-5,10,10)
+       ctx.clearRect(x-5,y-5,20,20)
        lastPoint=newPoint
       }}
       else{
@@ -176,13 +177,16 @@ var usingEraser = false
 eraser.onclick = function(){
   usingEraser = true
   usingPen=false
+  eraser.classList.add('active')
+  pen.classList.remove('active')
 }
 
 var usingPen = false
 pen.onclick = function(){
   usingPen = true
   usingEraser= false
-
+  pen.classList.add('active')
+  eraser.classList.remove('active')
 }
 
 
@@ -205,13 +209,31 @@ red.onclick=function(){
   ctx.strokeStyle=hash["2"]
   
 }
-grey.onclick=function(){
 
-  ctx.fillStyle=hash["3"]
-  ctx.strokeStyle=hash["3"]
- 
+lineWidth=3
+thin.onclick=function(){
+  lineWidth=5
 }
 
+thick.onclick=function(){
+  lineWidth=10
+}
+
+clearscreen.onclick=function(){
+  ctx.clearRect(0,0,yyy.width,yyy.height)
+}
+
+download.onclick=function(){
+  var url=yyy.toDataURL("image/png")
+  console.log(url)
+  var a=document.createElement('a')
+  document.body.appendChild(a)
+  a.href=url
+  a.download="demo"
+  a.target='_blank'
+  a.click()
+
+}
 
 
 

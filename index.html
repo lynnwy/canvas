@@ -7,19 +7,44 @@
     <meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1.0,maximum-scale=1.0,minimun-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./style.css">
+    <script src="//at.alicdn.com/t/font_1128164_swhln6n1tha.js"></script>
    
 </head>
 <body>
     <canvas id="xxx" height=900 width=900></canvas>
     <div class="nav clearfix">
-    <button id=eraser>橡皮擦</button>
-    <button id=pen>画笔</button>
+            <svg id="pen" class="pen" >
+                    <use xlink:href="#icon-pen"></use>
+                    </svg>
+    <svg id= "eraser" class="eraser" >
+    <use xlink:href="#icon-eraser"></use>
+    </svg>
+    <svg id="clearscreen" class="clearscreen" >
+            <use xlink:href="#icon-el-icon-delete2"></use>
+        </svg>
+        <svg id="download" class="download" >
+                <use xlink:href="#icon-clouddownloadstorageservernetwork"></use>
+            </svg>
+  <!-- 
     <button id=blue>蓝色</button>
     <button id=green>绿色</button>
     <button id=red>红色</button>
-    <button id=grey>灰色</button>
+    <button id=grey>灰色</button>-->
 
 </div>
+
+<ol class="colors">
+    <li id="red"class="red"></li>
+    <li id="blue"class="blue"></li>
+    <li id= "green"class="green"></li>
+</ol>
+
+<ol class="sizes">
+        <li id="thin"class="thin"></li>
+        <li id="thick"class="thick"></li>
+        
+    </ol>
+   
 </body>
 <script type="text/javascript" src="./main.js"></script>
 </html>

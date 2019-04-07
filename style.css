@@ -1,11 +1,23 @@
+
+ul,ol{
+  list-style: none;
+}
+*{
+  margin:0;padding:0;
+}
+
 #xxx{
-    background: yellow;
+    background:  white;
     display:block;
+    position: fixed;
+    top:0;
+    left:0;
     
   }
   body{
     margin:0;
     position: relative;
+    overflow:hidden;
   }
   html{
     
@@ -13,10 +25,10 @@
  .nav{
    position: absolute;
    top:0;
+   padding:20px;
 
  }
   button{
-    
     float: left;
   }
  
@@ -25,3 +37,64 @@
     display:block;
     clear:both;
   }
+
+  svg {
+    width: 1.5em; height: 1.5em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+    margin-left: 1em;
+    transition:all 0.3s;
+ }
+ svg.active{
+   fill:red;
+   transform:scale(1.2);
+  
+ }
+
+
+ .colors{
+   position: fixed;
+   top:57px;
+   left:33px;
+   
+ }
+
+
+ .colors >li{
+  width:20px;
+  height:20px;
+  border:1px solid grey;
+  
+ 
+ }
+ .colors >li.red{
+   background: red;
+ }
+ .colors >li.blue{
+  background: lightblue;
+}
+.colors >li.green{
+  background: greenyellow;
+}
+
+.sizes{
+  position: fixed;
+  right:10px;
+  top:45px;
+}
+
+.sizes >li{
+  margin:10px;
+}
+.sizes > .thin{
+  height: 0;
+  width:20px;
+  border-top: 3px solid black;
+}
+
+.sizes > .thick{
+  height: 0;
+  width:20px;
+  border-top: 6px solid black;
+}
