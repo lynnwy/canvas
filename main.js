@@ -70,55 +70,105 @@ function autoSetCanvasSize(canvas){
 
 
 
-
+//特性检测
 function listenToMouse(canvas){
   var clickon =false
   var lastpoint={x:undefined,y:undefined}
-  canvas.onmousedown= function(aaa){
-    var x=aaa.clientX
-    var y=aaa.clientY
-    clickon=true
-    if(usingEraser){
-      
-      lastPoint={
-        "x":x,
-        "y":y
+  if( document.body.ontouchstart!==undefined ){
+    //触屏设备
+
+    canvas.ontouchstart=function(aaa){
+      console.log(aaa)
+      var x=aaa.touches[0].clientX
+      var y=aaa.touches[0].clientY
+      clickon=true
+      if(usingEraser){
+        
+        lastPoint={
+          "x":x,
+          "y":y
+        }
+        ctx.clearRect(x,y,10,10)
+      }else if(usingPen) {
+        
+        lastPoint={
+          "x":x,
+          "y":y
+        }
       }
-      ctx.clearRect(x,y,10,10)
-    }else if(usingPen) {
       
-      lastPoint={
-        "x":x,
-        "y":y
+    }
+    canvas.ontouchmove=function(aaa){
+     console.log('边摸变动')
+     var x=aaa.touches[0].clientX
+     var y=aaa.touches[0].clientY
+      
+      if(usingEraser){
+        if(clickon){
+         var newPoint={x:x,y:y}
+       ctx.clearRect(x-5,y-5,10,10)
+       lastPoint=newPoint
+      }}
+      else{
+       if(clickon){ 
+         var newPoint={x:x,y:y}
+         drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
+         
+         lastPoint=newPoint
+      }
+   }}
+   canvas.ontouchend=function(){
+     console.log('摸完了')
+   }
+
+  }else{
+    //非触屏设备
+    canvas.onmousedown= function(aaa){
+      var x=aaa.clientX
+      var y=aaa.clientY
+      clickon=true
+      if(usingEraser){
+        
+        lastPoint={
+          "x":x,
+          "y":y
+        }
+        ctx.clearRect(x,y,10,10)
+      }else if(usingPen) {
+        
+        lastPoint={
+          "x":x,
+          "y":y
+        }
       }
     }
-  }
-  
-  canvas.onmousemove=function(aaa){
-    var x=aaa.clientX
-    var y=aaa.clientY
-     
-     if(usingEraser){
-       if(clickon){
-        var newPoint={x:x,y:y}
-      ctx.clearRect(x-5,y-5,10,10)
-      lastPoint=newPoint
-     }}
-     else{
-      if(clickon){ 
-        var newPoint={x:x,y:y}
-        drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
-        
+    
+    canvas.onmousemove=function(aaa){
+      var x=aaa.clientX
+      var y=aaa.clientY
+       
+       if(usingEraser){
+         if(clickon){
+          var newPoint={x:x,y:y}
+        ctx.clearRect(x-5,y-5,10,10)
         lastPoint=newPoint
-     }}
+       }}
+       else{
+        if(clickon){ 
+          var newPoint={x:x,y:y}
+          drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
+          
+          lastPoint=newPoint
+       }}
+  
+  
+       canvas.onmouseup=function(aaa){
+        clickon=false 
+      }
+
+  }
    
-  }
-  
-  
-  
-  canvas.onmouseup=function(aaa){
-    clickon=false 
-  }
+  } 
   
 }
 
@@ -161,6 +211,9 @@ grey.onclick=function(){
   ctx.strokeStyle=hash["3"]
  
 }
+
+
+
 
 
 
