@@ -181,7 +181,8 @@ eraser.onclick = function(){
   pen.classList.remove('active')
 }
 
-var usingPen = false
+var usingPen = true
+pen.classList.add('active')
 pen.onclick = function(){
   usingPen = true
   usingEraser= false
